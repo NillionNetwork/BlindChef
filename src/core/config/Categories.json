@@ -1,7 +1,17 @@
 [
     {
         "name": "Favourites",
-        "ops": []
+        "ops": [
+            "NilQL Encrypt",
+            "NilQL Decrypt"
+        ]
+    },
+    {
+        "name": "Nillion",
+        "ops": [
+            "NilQL Encrypt",
+            "NilQL Decrypt"
+        ]
     },
     {
         "name": "Data format",
