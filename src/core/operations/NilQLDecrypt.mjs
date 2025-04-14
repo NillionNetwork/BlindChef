@@ -6,7 +6,6 @@
 
 import Operation from "../Operation.mjs";
 import { nilql } from "@nillion/nilql";
-import Utils from "../Utils.mjs";
 
 /**
  * NilQL Decrypt operation
@@ -88,7 +87,7 @@ class NilQLDecrypt extends Operation {
                 } else {
                     // Convert array of ASCII codes to string
                     if (Array.isArray(decrypted)) {
-                        return decrypted.map(code => String.fromCharCode(code)).join('');
+                        return decrypted.map(code => String.fromCharCode(code)).join("");
                     }
                     return decrypted;
                 }

@@ -6,7 +6,6 @@
 
 import Operation from "../Operation.mjs";
 import { nilql } from "@nillion/nilql";
-import Utils from "../Utils.mjs";
 
 /**
  * NilQL Encrypt operation
