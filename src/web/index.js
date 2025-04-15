@@ -30,6 +30,7 @@ function main() {
         "NilQL Cluster Key Decrypt",
         "NilQL Secret Key Encrypt",
         "NilQL Secret Key Decrypt",
+        "NilQL Secret Share Sum",
         "To Base64",
         "From Base64",
         "To Hex",

@@ -5,7 +5,8 @@
             "NilQL Cluster Key Encrypt",
             "NilQL Cluster Key Decrypt",
             "NilQL Secret Key Encrypt",
-            "NilQL Secret Key Decrypt"
+            "NilQL Secret Key Decrypt",
+            "NilQL Secret Share Sum"
         ]
     },
     {
@@ -14,7 +15,8 @@
             "NilQL Cluster Key Encrypt",
             "NilQL Cluster Key Decrypt",
             "NilQL Secret Key Encrypt",
-            "NilQL Secret Key Decrypt"
+            "NilQL Secret Key Decrypt",
+            "NilQL Secret Share Sum"
         ]
     },
     {

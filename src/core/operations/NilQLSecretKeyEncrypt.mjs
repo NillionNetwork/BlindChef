@@ -1,6 +1,6 @@
 /**
- * @author n1474335 [n1474335@gmail.com]
- * @copyright Crown Copyright 2016
+ * @author Dimitris Mouris [dimitris@nillion.com]
+ * @copyright Crown Copyright 2025
  * @license Apache-2.0
  */
 
