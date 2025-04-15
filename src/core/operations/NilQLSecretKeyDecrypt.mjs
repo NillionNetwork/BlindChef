@@ -8,16 +8,16 @@ import Operation from "../Operation.mjs";
 import { nilql } from "@nillion/nilql";
 
 /**
- * NilQL Cluster Key  Decrypt operation
+ * NilQL Secret Key Decrypt operation
  */
-class NilQLClusterKeyDecrypt extends Operation {
+class NilQLSecretKeyDecrypt extends Operation {
     /**
-     * NilQLClusterKeyDecrypt constructor
+     * NilQLSecretKeyDecrypt constructor
      */
     constructor() {
         super();
 
-        this.name = "NilQL Cluster Key Decrypt";
+        this.name = "NilQL Secret Key Decrypt";
         this.module = "Crypto";
         this.description = "Decrypts data using nilql-ts library with multi-party computation capabilities. Supports:\n\n- SUM mode: decrypts numbers from secure summation (returns single number)\n- STORE mode: decrypts strings from secure storage (returns list of strings)";
         this.infoURL = "https://github.com/NillionNetwork/nilql-ts";
@@ -33,6 +33,11 @@ class NilQLClusterKeyDecrypt extends Operation {
                 name: "Mode",
                 type: "option",
                 value: ["sum", "store"]
+            },
+            {
+                name: "Seed",
+                type: "string",
+                value: ""
             }
         ];
         this.secretKey = null;
@@ -44,7 +49,7 @@ class NilQLClusterKeyDecrypt extends Operation {
      * @returns {Promise<string>}
      */
     async run(input, args) {
-        const [numNodes, mode] = args;
+        const [numNodes, mode, seed] = args;
 
         try {
             // Create cluster configuration
@@ -52,7 +57,13 @@ class NilQLClusterKeyDecrypt extends Operation {
 
             // Generate secret key if not already generated
             if (!this.secretKey) {
-                this.secretKey = await nilql.ClusterKey.generate(cluster, { [mode]: true });
+                if (seed) {
+                    // Generate secret key using the provided seed
+                    this.secretKey = await nilql.SecretKey.generate(cluster, { [mode]: true }, null, seed);
+                } else {
+                    // Generate a new secret key if not already generated
+                    this.secretKey = await nilql.SecretKey.generate(cluster, { [mode]: true }, null, 42);
+                }
             }
 
             // Parse input as JSON
@@ -68,4 +79,4 @@ class NilQLClusterKeyDecrypt extends Operation {
     }
 }
 
-export default NilQLClusterKeyDecrypt;
+export default NilQLSecretKeyDecrypt;

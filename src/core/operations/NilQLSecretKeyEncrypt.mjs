@@ -8,18 +8,18 @@ import Operation from "../Operation.mjs";
 import { nilql } from "@nillion/nilql";
 
 /**
- * NilQL Cluster Key Encrypt operation
+ * NilQL Secret Key Encrypt operation
  */
-class NilQLClusterKeyEncrypt extends Operation {
+class NilQLSecretKeyEncrypt extends Operation {
     /**
-     * NilQLClusterKeyEncrypt constructor
+     * NilQLSecretKeyEncrypt constructor
      */
     constructor() {
         super();
 
-        this.name = "NilQL Cluster Key Encrypt";
+        this.name = "NilQL Secret Key Encrypt";
         this.module = "Crypto";
-        this.description = "Encrypts data using nilql-ts library with multi-party computation capabilities. Supports:\n\n- SUM mode: encrypts numbers for secure summation (numbers only)\n- STORE mode: encrypts strings for secure storage";
+        this.description = "Encrypts data using nilql-ts library with multi-party computation capabilities. Supports:\n\n- SUM mode: encrypts numbers for secure summation (numbers only)\n- STORE mode: encrypts strings for secure storage\n- MATCH mode: encrypts strings for secure matching";
         this.infoURL = "https://github.com/NillionNetwork/nilql-ts";
         this.inputType = "string";
         this.outputType = "string";
@@ -32,7 +32,12 @@ class NilQLClusterKeyEncrypt extends Operation {
             {
                 name: "Mode",
                 type: "option",
-                value: ["sum", "store"]
+                value: ["sum", "store", "match"]
+            },
+            {
+                name: "Seed",
+                type: "string",
+                value: ""
             }
         ];
         this.secretKey = null;
@@ -44,7 +49,7 @@ class NilQLClusterKeyEncrypt extends Operation {
      * @returns {Promise<string>}
      */
     async run(input, args) {
-        const [numNodes, mode] = args;
+        const [numNodes, mode, seed] = args;
 
         try {
             // Create cluster configuration
@@ -52,7 +57,13 @@ class NilQLClusterKeyEncrypt extends Operation {
 
             // Generate secret key if not already generated
             if (!this.secretKey) {
-                this.secretKey = await nilql.ClusterKey.generate(cluster, { [mode]: true });
+                if (seed) {
+                    // Generate secret key using the provided seed
+                    this.secretKey = await nilql.SecretKey.generate(cluster, { [mode]: true }, null, seed);
+                } else {
+                    // Generate a new secret key if not already generated
+                    this.secretKey = await nilql.SecretKey.generate(cluster, { [mode]: true }, null, 42);
+                }
             }
 
             let value;
@@ -71,7 +82,7 @@ class NilQLClusterKeyEncrypt extends Operation {
             // Encrypt the value
             const ciphertext = await nilql.encrypt(this.secretKey, value);
 
-            // Return the ciphertext as JSON string
+            // Return the ciphertext and secret key as JSON string
             return JSON.stringify(ciphertext);
         } catch (error) {
             return `Error: ${error.message}`;
@@ -79,4 +90,4 @@ class NilQLClusterKeyEncrypt extends Operation {
     }
 }
 
-export default NilQLClusterKeyEncrypt;
+export default NilQLSecretKeyEncrypt;
