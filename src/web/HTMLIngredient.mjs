@@ -15,8 +15,8 @@ class HTMLIngredient {
      * HTMLIngredient constructor.
      *
      * @param {Object} config - The configuration object for this ingredient.
-     * @param {App} app - The main view object for CyberChef.
-     * @param {Manager} manager - The CyberChef event manager.
+     * @param {App} app - The main view object for BlindChef.
+     * @param {Manager} manager - The BlindChef event manager.
      */
     constructor(config, app, manager) {
         this.app = app;

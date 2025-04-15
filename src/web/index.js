@@ -15,14 +15,14 @@ import "bootstrap-colorpicker";
 import moment from "moment-timezone";
 import * as CanvasComponents from "../core/lib/CanvasComponents.mjs";
 
-// CyberChef
+// BlindChef
 import App from "./App.mjs";
 import Categories from "../core/config/Categories.json" assert {type: "json"};
 import OperationConfig from "../core/config/OperationConfig.json" assert {type: "json"};
 
 
 /**
- * Main function used to build the CyberChef web app.
+ * Main function used to build the BlindChef web app.
  */
 function main() {
     const defaultFavourites = [
@@ -30,18 +30,7 @@ function main() {
         "NilQL Cluster Key Decrypt",
         "NilQL Secret Key Encrypt",
         "NilQL Secret Key Decrypt",
-        "NilQL Secret Share Sum",
-        "To Base64",
-        "From Base64",
-        "To Hex",
-        "From Hex",
-        "To Hexdump",
-        "From Hexdump",
-        "URL Decode",
-        "Regular expression",
-        "Entropy",
-        "Fork",
-        "Magic"
+        "NilQL Secret Share Sum"
     ];
 
     const defaultOptions = {

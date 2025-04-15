@@ -1,9 +1,9 @@
-/** 
+/**
  * Implementation Web Crypto random generatore for GOST algorithms
  * 1.76
  * 2014-2016, Rudolf Nickolaev. All rights reserved.
- * 
- * Exported for CyberChef by mshwed [m@ttshwed.com]
+ *
+ * Exported for BlindChef by mshwed [m@ttshwed.com]
  */
 
 /*
@@ -18,7 +18,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *    
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,18 +29,18 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  */
 import crypto from 'crypto';
 
 
 /**
  * The gostCrypto provide general purpose cryptographic functionality for
- * GOST standards including a cryptographically strong pseudo-random number 
+ * GOST standards including a cryptographically strong pseudo-random number
  * generator seeded with truly random values.
- * 
+ *
  * @Class GostRandom
- * 
+ *
  */ // <editor-fold defaultstate="collapsed">
 
 var root = {};
@@ -49,7 +49,7 @@ var rootCrypto = crypto;
 var TypeMismatchError = Error;
 var QuotaExceededError = Error;
 
-// Initialize mouse and time counters for random generator    
+// Initialize mouse and time counters for random generator
 var randomRing = {
     seed: new Uint8Array(1024),
     getIndex: 0,
@@ -92,11 +92,11 @@ function GostRandom() {
 
 /**
  * The getRandomValues method generates cryptographically random values. <br><br>
- * 
- * Random generator based on JavaScript Web Crypto random genereator 
- * (if it is possible) or  Math.random mixed with time and parameters of 
+ *
+ * Random generator based on JavaScript Web Crypto random genereator
+ * (if it is possible) or  Math.random mixed with time and parameters of
  * mouse and keyboard events
- * 
+ *
  * @memberOf GostRandom
  * @param {(ArrayBuffer|ArrayBufferView)} array Destination buffer for random data
  */

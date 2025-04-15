@@ -31,6 +31,6 @@ RUN npm run build
 # Remove TARGETARCH if docker buildx is supported in the CI release as --platform=$TARGETPLATFORM will be automatically set
 ARG TARGETARCH
 ARG TARGETPLATFORM
-FROM ${TARGETARCH}/nginx:stable-alpine AS cyberchef
+FROM ${TARGETARCH}/nginx:stable-alpine AS blindchef
 
 COPY --from=builder /app/build/prod /usr/share/nginx/html/

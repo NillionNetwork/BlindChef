@@ -16,7 +16,7 @@ const zlib = require("zlib");
 
 const d = new Date();
 const banner = `/**
- * CyberChef - The Cyber Swiss Army Knife
+ * BlindChef - The Cyber Swiss Army Knife
  *
  * @copyright Crown Copyright 2016-${d.getUTCFullYear()}
  * @license Apache-2.0

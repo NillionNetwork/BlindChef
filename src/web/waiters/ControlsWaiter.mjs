@@ -9,15 +9,15 @@ import { eolSeqToCode } from "../utils/editorUtils.mjs";
 
 
 /**
- * Waiter to handle events related to the CyberChef controls (i.e. Bake, Step, Save, Load etc.)
+ * Waiter to handle events related to the BlindChef controls (i.e. Bake, Step, Save, Load etc.)
  */
 class ControlsWaiter {
 
     /**
      * ControlsWaiter constructor.
      *
-     * @param {App} app - The main view object for CyberChef.
-     * @param {Manager} manager - The CyberChef event manager.
+     * @param {App} app - The main view object for BlindChef.
+     * @param {Manager} manager - The BlindChef event manager.
      */
     constructor(app, manager) {
         this.app = app;
@@ -120,7 +120,7 @@ class ControlsWaiter {
      * @param {boolean} includeInput - Whether to include the input in the URL.
      * @param {string} input
      * @param {Object[]} [recipeConfig] - The recipe configuration object array.
-     * @param {string} [baseURL] - The CyberChef URL, set to the current URL if not included
+     * @param {string} [baseURL] - The BlindChef URL, set to the current URL if not included
      * @returns {string}
      */
     generateStateUrl(includeRecipe, includeInput, input, recipeConfig, baseURL) {
@@ -389,7 +389,7 @@ class ControlsWaiter {
         e.preventDefault();
 
         const reportBugInfo = document.getElementById("report-bug-info");
-        const saveLink = this.generateStateUrl(true, true, null, null, "https://gchq.github.io/CyberChef/");
+        const saveLink = this.generateStateUrl(true, true, null, null, "https://gchq.github.io/BlindChef/");
 
         if (reportBugInfo) {
             reportBugInfo.innerHTML = `* Version: ${PKG_VERSION}

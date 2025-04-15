@@ -28,7 +28,7 @@ class Manager {
     /**
      * Manager constructor.
      *
-     * @param {App} app - The main view object for CyberChef.
+     * @param {App} app - The main view object for BlindChef.
      */
     constructor(app) {
         this.app = app;

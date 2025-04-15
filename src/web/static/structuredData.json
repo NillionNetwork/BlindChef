@@ -2,21 +2,21 @@
     {
         "@context": "http://schema.org",
         "@type": "Organization",
-        "url": "https://gchq.github.io/CyberChef/",
-        "logo": "https://gchq.github.io/CyberChef/images/cyberchef-128x128.png",
+        "url": "https://gchq.github.io/BlindChef/",
+        "logo": "https://gchq.github.io/BlindChef/images/blindchef-128x128.png",
         "sameAs": [
-            "https://github.com/gchq/CyberChef",
-            "https://www.npmjs.com/package/cyberchef"
+            "https://github.com/gchq/BlindChef",
+            "https://www.npmjs.com/package/blindchef"
         ]
     },
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "https://gchq.github.io/CyberChef/",
-        "name": "CyberChef",
+        "url": "https://gchq.github.io/BlindChef/",
+        "name": "BlindChef",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://gchq.github.io/CyberChef/?op={operation_search_term}",
+            "target": "https://gchq.github.io/BlindChef/?op={operation_search_term}",
             "query-input": "required name=operation_search_term"
         }
     }

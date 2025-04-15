@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------------------------------------------------------
-Created by Damian Recoskie (https://github.com/Recoskie/X86-64-Disassembler-JS) 
-  & exported for CyberChef by Matt [me@mitt.dev]
+Created by Damian Recoskie (https://github.com/Recoskie/X86-64-Disassembler-JS)
+  & exported for BlindChef by Matt [me@mitt.dev]
 ---------------------------------------------------------------------------------------------------------------------------
 MIT License
 
@@ -1663,7 +1663,7 @@ const Operands = [
   [["0A0A06A3","","",""],"0B70137007700108","",""],
   [["0A0A06A3","","",""],"0B701370077001400108","",""],
   [["0A0A06A9","","",""],"0B70137007700108","",""],
-  [["0A0A06A9","","",""],["0A040648","0B3013300730","0A0F137007700108",""],"",""], 
+  [["0A0A06A9","","",""],["0A040648","0B3013300730","0A0F137007700108",""],"",""],
   [["0A0A06A9","","",""],["0A040648","0B3013300730","0A0F137007700108",""],"",""],
   [["0A0A06A9","","",""],["0A040648","0B3013300730",["0A0F137007700148","",""],["0A0F1206066C0148","",""]],"",""],
   [["0A0A06A9","","",""],"0B70137007700108","",""],
@@ -3331,7 +3331,7 @@ const scale = [
  "*4", //when scale bits are 2 in value a scale multiple of times four is used
  "*8"  //when scale bits are 3 in value a scale multiple of times eight is used
  ];
- 
+
 /*-------------------------------------------------------------------------------------------------------------------------
 This function changes the Mnemonics array, for older instruction codes used by specific X86 cores that are under the same instruction codes.
 ---------------------------------------------------------------------------------------------------------------------------
@@ -3347,7 +3347,7 @@ If input "type" is set 6 it will adjust the mnemonic array to decode instruction
 export function CompatibilityMode( type )
 {
   //Reset the changeable sections of the Mnemonics array, and operand encoding array.
-  
+
   Mnemonics[0x062] = ["BOUND","BOUND",""];
   Mnemonics[0x110] = [["MOVUPS","MOVUPD","MOVSS","MOVSD"],["MOVUPS","MOVUPD","MOVSS","MOVSD"]];
   Mnemonics[0x111] = [["MOVUPS","MOVUPD","MOVSS","MOVSD"],["MOVUPS","MOVUPD","MOVSS","MOVSD"]];
@@ -3421,9 +3421,9 @@ export function CompatibilityMode( type )
   Operands[0x198] = [["0600",["0A0F06FF","","0A0F06FF"],"",""],["0600",["0A0F06FF","","0A0F06FF"],"",""],"",""];
   Operands[0x1A6] = "0B0E070E";
   Operands[0x1A7] = "070E0B0E";
-  
+
   //Adjust the VEX mask instructions for K1OM (Knights corner) which conflict with the enhanced AVX512 versions.
-	
+
   if( type === 1 )
   {
     Mnemonics[0x141] = [["CMOVNO","KAND","",""],"","",""];
@@ -3447,9 +3447,9 @@ export function CompatibilityMode( type )
     Operands[0x193] = [["0600","07060A0F","",""],"","",""];
     Operands[0x198] = [["0600","0A0F06FF","",""],"","",""];
   }
-  
+
   //Disable Knights corner, and AVX512, for L1OM (Intel Larrabee).
-  
+
   if( type === 2 )
   {
     Mnemonics[0x62] = "";
@@ -3477,14 +3477,14 @@ export function CompatibilityMode( type )
     Operands[0x17B] = "3000"; Operands[0x17C] = "3000"; Operands[0x17D] = "3000";
     Operands[0x17E] = "";
   }
-  
+
   //Adjust the Mnemonics, and Operand encoding, for the Geode processor.
-  
+
   if( type === 4 )
   {
     Mnemonics[0x138] = "SMINT"; Mnemonics[0x139] = "DMINT"; Mnemonics[0x13A] = "RDM";
   }
-  
+
   //Adjust the Mnemonics, for the Centaur processor.
 
   if( type === 5 )
@@ -3519,9 +3519,9 @@ export function CompatibilityMode( type )
       ]
     ];
   }
-  
+
   //Adjust the Mnemonics, for the X86/486 processor and older.
-  
+
   if( type === 6 )
   {
     Mnemonics[0x110] = "UMOV"; Mnemonics[0x111] = "UMOV"; Mnemonics[0x112] = "UMOV"; Mnemonics[0x113] = "UMOV";
@@ -3529,7 +3529,7 @@ export function CompatibilityMode( type )
     Operands[0x110] = "06000A00"; Operands[0x111] = "070E0B0E"; Operands[0x112] = "0A000600"; Operands[0x113] = "0B0E070E";
     Operands[0x1A6] = ""; Operands[0x1A7] = "";
   }
-  
+
 }
 
 /*-------------------------------------------------------------------------------------------------------------------------
@@ -3936,7 +3936,7 @@ function Decode_ModRM_SIB_Value()
   ];
 
   //Move the Decoders Position by one.
-  
+
   NextByte();
 
   //return the array containing the decoded values of the byte.
@@ -4045,27 +4045,27 @@ function DecodeImmediate( type, BySize, SizeSetting )
     Pad32 = ( Math.min( BitMode, 1 ) << 2 ) + 4; Pad64 = Math.max( Math.min( BitMode, 2 ), 1 ) << 3;
 
     //Carry bit to 64 bit section.
-    
+
     var C64 = 0;
-    
+
     //Relative size.
-    
+
     var n = Math.min( 0x100000000, Math.pow( 2, 4 << ( S + 1 ) ) );
-    
+
     //Sign bit adjust.
-    
+
     if( V32 >= ( n / 2 ) ) { V32 -= n; }
-    
+
     //Add position.
-    
+
     V32 += Pos32;
-    
+
     //Remove carry bit and add it to C64.
 
     ( C64 = ( ( V32 ) >= 0x100000000 ) ) && ( V32 -= 0x100000000 );
-    
+
     //Do not carry to 64 if address is 32, and below.
-    
+
     if ( S <= 2 ) { C64 = false; }
 
     //Add the 64 bit position plus carry.
@@ -4178,7 +4178,7 @@ function DecodeRegValue( RValue, BySize, Setting )
   }
 
   //If XOP only vector 0 to 15 are usable.
-      
+
   if( Opcode >= 0x400 ) { RValue &= 15; }
 
   //Else If 16/32 bit mode in VEX/EVEX/MVEX vctor register can only go 0 though 7.
@@ -4422,9 +4422,9 @@ function Decode_ModRM_SIB_Address( ModRM, BySize, Setting )
 
           out = out + scale[SIB[0]];
         }
-        
+
         //Else if it is an vector register.
-        
+
         else if ( VSIB )
         {
           Setting = ( Setting < 8 ) ? 4 : Setting >> 1;
@@ -4498,7 +4498,7 @@ function Decode_ModRM_SIB_Address( ModRM, BySize, Setting )
     //Else bad Conversion setting.
 
     else if( ConversionMode !== 0 ) { out += S_C + "Error"; S_C = ","; }
-    
+
     //--------------------------------END of memory Conversion control logic--------------------------------
 
   } //End of Memory address Modes 00, 01, 10 decode.
@@ -4510,9 +4510,9 @@ function Decode_ModRM_SIB_Address( ModRM, BySize, Setting )
     //-------------------------------------------------------------------------------------------------------------------------
     //The Selected Size is setting unless BySize attribute is true.
     //-------------------------------------------------------------------------------------------------------------------------
-    
+
     //MVEX/EVEX round mode.
- 
+
     if ( ( Extension === 3 && HInt_ZeroMerg ) || ( Extension === 2 && ConversionMode === 1 ) )
     {
       RoundMode |= RoundingSetting;
@@ -4525,9 +4525,9 @@ function Decode_ModRM_SIB_Address( ModRM, BySize, Setting )
     //Decode the register with Base expansion.
 
     out = DecodeRegValue( BaseExtend | ModRM[2], BySize, Setting );
-    
+
     //L1OM/K1OM Register swizzle modes.
-    
+
     if( Opcode >= 0x700 || ( Extension === 3 && !HInt_ZeroMerg && Swizzle ) )
     {
       if( Opcode >= 0x700 && ConversionMode >= 3 ){ ConversionMode++; } //L1OM skips swizzle type DACB.
@@ -4751,7 +4751,7 @@ function DecodePrefixAdjustments()
       return(null);
     }
   }
-  
+
   //The L1OM vector prefix settings decoding.
 
   if( Opcode === 0xD6 )
@@ -4829,31 +4829,31 @@ function DecodePrefixAdjustments()
     InvalidOp = ( Opcode & 0x00000C ) > 0;
 
     //Decode bit settings.
-    
+
     if( BitMode === 2 )
     {
       RegExtend = ( ( Opcode & 0x80 ) >> 4 ) | ( Opcode & 0x10 ); //The Double R'R bit decode for Register Extension 0 to 32.
       BaseExtend = ( Opcode & 0x60 ) >> 2; //The X bit, and B Bit base register extend combination 0 to 32.
       IndexExtend = ( Opcode & 0x40 ) >> 3; //The X extends the SIB Index by 8.
     }
-    
+
     VectorRegister = ( ( Opcode & 0x7800 ) >> 11 ) | ( ( Opcode & 0x080000 ) >> 15 ); //The Added in Vector Register for SSE under MVEX/EVEX.
-    
+
     WidthBit = ( Opcode & 0x8000 ) >> 15; //The width bit separator for MVEX/EVEX.
     SIMD = ( Opcode & 0x0300 ) >> 8; //decode the SIMD mode setting.
     HInt_ZeroMerg = ( Opcode & 0x800000 ) >> 23; //Zero Merge to destination control, or MVEX EH control.
-      
+
     //EVEX option bits take the place of Vector length control.
-      
+
     if ( ( Opcode & 0x0400 ) > 0 )
     {
       SizeAttrSelect = ( Opcode & 0x600000 ) >> 21; //The EVEX.L'L Size combination.
       RoundMode = SizeAttrSelect | 4; //Rounding mode is Vector length if used.
       ConversionMode = (Opcode & 0x100000 ) >> 20; //Broadcast Round Memory address system.
     }
-      
+
     //MVEX Vector Length, and Broadcast round.
-      
+
     else
     {
       SizeAttrSelect = 2; //Max Size by default.
@@ -5239,7 +5239,7 @@ function DecodeOperands()
       X86Decoder[3].BySizeAttrubute, //By size attribute or not.
       X86Decoder[3].Size //Size settings.
     );
-	  
+
     //Check if Instruction uses condition codes.
 
     if( Instruction.slice(-1) === "," )
@@ -5257,7 +5257,7 @@ function DecodeOperands()
     //else add the Immediate byte encoding to the decoded instruction operands.
 
     else { out[ X86Decoder[3].OpNum ] = t; }
-    
+
     IMM_Used = true; //Immediate byte is read.
   }
 
@@ -5378,7 +5378,7 @@ function DecodeOperands()
   //Mask Register is used if it is not 0 in value.
 
   if( MaskRegister !== 0 ){ out[0] += "{K" + MaskRegister + "}"; }
-  
+
   //EVEX Zero Merge control.
 
   if( Extension === 2 && HInt_ZeroMerg ) { out[0] += "{Z}"; }
@@ -5643,9 +5643,9 @@ function Reset()
   //Reset Opcode, and Size attribute selector.
 
   Opcode = 0; SizeAttrSelect = 1;
-  
+
   //Reset Operands and instruction.
-  
+
   Instruction = ""; InsOperands = "";
 
   //Reset ModR/M.
@@ -5745,16 +5745,16 @@ export function LDisassemble()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
- * The following code has been added to expose public methods for use in CyberChef
+ * The following code has been added to expose public methods for use in BlindChef
  */
 
 export function setBitMode (val) {
-  BitMode = val; 
+  BitMode = val;
 };
 export function setShowInstructionHex (val) {
   ShowInstructionHex = val;
 };
 export function setShowInstructionPos (val) {
-  ShowInstructionPos = val; 
+  ShowInstructionPos = val;
 };
 

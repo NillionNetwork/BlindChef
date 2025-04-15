@@ -15,7 +15,7 @@ import cptable from "codepage";
 
 
 /**
- * HTML view for CyberChef responsible for building the web page and dealing with all user
+ * HTML view for BlindChef responsible for building the web page and dealing with all user
  * interactions.
  */
 class App {
@@ -347,17 +347,7 @@ class App {
      * If the user currently has no saved favourites, the defaults from the view constructor are used.
      */
     loadFavourites() {
-        let favourites;
-
-        if (this.isLocalStorageAvailable()) {
-            favourites = localStorage?.favourites?.length > 2 ?
-                JSON.parse(localStorage.favourites) :
-                this.dfavourites;
-            favourites = this.validFavourites(favourites);
-            this.saveFavourites(favourites);
-        } else {
-            favourites = this.dfavourites;
-        }
+        const favourites = this.dfavourites; // Always use default favourites
 
         const favCat = this.categories.filter(function(c) {
             return c.name === "Favourites";
@@ -648,9 +638,9 @@ class App {
         else if (prev[1] > 0) prev[1]--;
         else prev[0]--;
 
-        // const compareURL = `https://github.com/gchq/CyberChef/compare/v${prev.join(".")}...v${PKG_VERSION}`;
+        // const compareURL = `https://github.com/gchq/BlindChef/compare/v${prev.join(".")}...v${PKG_VERSION}`;
 
-        let compileInfo = `<a href='https://github.com/gchq/CyberChef/blob/master/CHANGELOG.md'>Last build: ${timeSinceCompile.substr(0, 1).toUpperCase() + timeSinceCompile.substr(1)} ago</a>`;
+        let compileInfo = `<a href='https://github.com/gchq/BlindChef/blob/master/CHANGELOG.md'>Last build: ${timeSinceCompile.substr(0, 1).toUpperCase() + timeSinceCompile.substr(1)} ago</a>`;
 
         if (window.compileMessage !== "") {
             compileInfo += " - " + window.compileMessage;
@@ -660,7 +650,7 @@ class App {
         notice.innerHTML = compileInfo;
         notice.setAttribute("title", Utils.stripHtmlTags(window.compileMessage));
         notice.setAttribute("data-help-title", "Last build");
-        notice.setAttribute("data-help", "This live version of CyberChef is updated whenever new commits are added to the master branch of the CyberChef repository. It represents the latest, most up-to-date build of CyberChef.");
+        notice.setAttribute("data-help", "This live version of BlindChef is updated whenever new commits are added to the master branch of the BlindChef repository. It represents the latest, most up-to-date build of BlindChef.");
     }
 
 
@@ -786,7 +776,7 @@ class App {
     updateURL(includeInput, input=null, changeUrl=true) {
         // Set title
         const recipeConfig = this.getRecipeConfig();
-        let title = "CyberChef";
+        let title = "BlindChef";
         if (recipeConfig.length === 1) {
             title = `${recipeConfig[0].op} - ${title}`;
         } else if (recipeConfig.length > 1) {
