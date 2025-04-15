@@ -2,15 +2,19 @@
     {
         "name": "Favourites",
         "ops": [
-            "NilQL Encrypt",
-            "NilQL Decrypt"
+            "NilQL Cluster Key Encrypt",
+            "NilQL Cluster Key Decrypt",
+            "NilQL Secret Key Encrypt",
+            "NilQL Secret Key Decrypt"
         ]
     },
     {
         "name": "Nillion",
         "ops": [
-            "NilQL Encrypt",
-            "NilQL Decrypt"
+            "NilQL Cluster Key Encrypt",
+            "NilQL Cluster Key Decrypt",
+            "NilQL Secret Key Encrypt",
+            "NilQL Secret Key Decrypt"
         ]
     },
     {

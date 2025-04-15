@@ -26,8 +26,10 @@ import OperationConfig from "../core/config/OperationConfig.json" assert {type: 
  */
 function main() {
     const defaultFavourites = [
-        "NilQL Encrypt",
-        "NilQL Decrypt",
+        "NilQL Cluster Key Encrypt",
+        "NilQL Cluster Key Decrypt",
+        "NilQL Secret Key Encrypt",
+        "NilQL Secret Key Decrypt",
         "To Base64",
         "From Base64",
         "To Hex",
